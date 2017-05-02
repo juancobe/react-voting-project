@@ -5,6 +5,7 @@ import { mount, render } from 'enzyme';
 import {List} from 'immutable';
 
 //testing the Voting component
+//expect is from jest, mount is from enzyme. So what is inside the parenthesis of expect is enzyme and the rest is jest. 
 
 it('renders Voting component as two buttons with no errors', () => {
 	const votingComponent = <Voting pair={['Trainspotting', '28 Days Later']} />;
