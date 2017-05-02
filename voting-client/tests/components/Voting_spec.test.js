@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Voting from '../../src/components/Voting';
-import { mount } from 'enzyme';
+import { mount, render } from 'enzyme';
+import {List} from 'immutable';
 
 //testing the Voting component
 
@@ -42,4 +43,33 @@ it('renders just the winner when there is one', () => {
 
 	const winner = component.ref('winner');
 	expect(winner.text()).toBe('Winner is Trainspotting!');
+})
+
+//supposedly, if we pass an array as props for the component and then update the values of the array and re-render, the component should NOT change since it's a pure component... but I don't really understand why. A: Supposedly pure components should not be doing deep checks of the state of their props and only re-render when there's a NEW (as in literally different) object passed on its props. That's why you work with immutable objects, because you're literally always passing a new object.  
+it('renders as a pure component', () => {
+	const pair = ['Trainspotting', '28 Days Later'];
+	let votingComponent = mount(
+		<Voting pair={pair} />
+	);
+
+  expect(votingComponent.find('button').at(0).text()).toBe('Trainspotting');
+
+	pair[0] = 'Sunshine';
+  votingComponent.setProps({pair: pair});
+
+  expect(votingComponent.find('button').at(0).text()).toBe('Trainspotting');
+})
+
+it('does update DOM when prop changes', () => {
+	const pair = List.of('Trainspotting', '28 Days Later');
+	let votingComponent = mount(
+		<Voting pair={pair} />
+	);
+
+  expect(votingComponent.find('button').at(0).text()).toBe('Trainspotting');
+  const newPair = pair.set(0, 'Sunshine');
+
+  votingComponent.setProps({pair: newPair});
+
+
 })

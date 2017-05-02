@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 
-class Vote extends Component {
+class Vote extends React.PureComponent {
 	getPair() {
 		return this.props.pair || [];
 	}
