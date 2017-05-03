@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Voting from '../../src/components/Voting';
+import {Voting} from '../../src/components/Voting';
 import { mount, render } from 'enzyme';
 import {List} from 'immutable';
 

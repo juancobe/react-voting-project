@@ -2,27 +2,43 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {HashRouter, Route} from 'react-router-dom';
-import {List, Map} from 'immutable';
+// import {List, Map} from 'immutable';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
 // import {AppContainer} from 'react-hot-loader';
 // import App from './components/App';
-import Voting from './components/Voting';
-import Results from './components/Results';
+import reducer from './reducer';
+import {VotingContainer} from './components/Voting';
+import {ResultsContainer} from './components/Results';
 
 const rootEl = document.getElementById('root');
-const pair = List.of('Trainspotting', '28 Days Later');
-const tally = Map({'Trainspotting': 5, '28 Days Later': 4});
+
+
+const store = createStore(reducer);
+store.dispatch({
+  type: 'SET_STATE',
+  state: {
+    vote: {
+      pair: ['Sunshine', '28 Days Later'],
+      tally: {Sunshine: 2}
+    }
+  }
+});
+
 
 ReactDOM.render((
+<Provider store={store}>  
   <HashRouter>
     <div>
         <Route exact path="/" render={(props) => (
-          <Voting pair={pair} {...props} />
+          <VotingContainer {...props} />
         )} />
         <Route path="/results" render={(props) => (
-          <Results pair={pair} tally={tally} {...props} />
+          <ResultsContainer {...props} />
         )} />
     </div>
   </HashRouter>
+</Provider>
   ), rootEl
 );
 

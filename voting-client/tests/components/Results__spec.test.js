@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Results from '../../src/components/Results';
+import {Results} from '../../src/components/Results';
 import { mount, render } from 'enzyme';
 import {List, Map} from 'immutable';
 
@@ -25,5 +25,11 @@ it('invokes the next callback when next button is clicked', () => {
 	component.ref('next').simulate('click');
 
 	expect(nextInvoked).toBe(true);
-
 })
+
+it('renders the winner when there is one', () => {
+	const component = mount(<Results pair={["Trainspotting", "28 Days Later"]} tally={Map()} winner="Trainspotting" />);
+	const winner = component.ref('winner');
+	expect(winner.length).toBe(1);
+})
+
