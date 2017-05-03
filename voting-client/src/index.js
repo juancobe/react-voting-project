@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {HashRouter, Route} from 'react-router-dom';
-// import {List, Map} from 'immutable';
 import {Provider} from 'react-redux';
+import io from 'socket.io-client';
 import {createStore} from 'redux';
 // import {AppContainer} from 'react-hot-loader';
 // import App from './components/App';
@@ -25,6 +25,7 @@ store.dispatch({
   }
 });
 
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
 
 ReactDOM.render((
 <Provider store={store}>  
